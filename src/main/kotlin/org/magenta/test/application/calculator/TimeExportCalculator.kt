@@ -21,7 +21,7 @@ class TimeExportCalculator(val resource: Resource){
         return calculateTimeTable(orders, firstInterval.end, resource.speed)
     }
 
-    private fun getMiddle(timeInterval: TimeInterval) = timeInterval.start + (timeInterval.end - timeInterval.start).toDouble().div(2).roundToInt()
+    private fun getMiddle(timeInterval: TimeInterval) = timeInterval.start + (timeInterval.end - timeInterval.start)/2
 
     private fun validateStartTime(orders: List<Order>, startTime: Int, speed: Int):Boolean{
         var currentGeoPoint = DistributionCenter.geoPoint
@@ -30,7 +30,7 @@ class TimeExportCalculator(val resource: Resource){
         var travelTime: Double
         orders.forEach {
             time += calculateTravelTime(currentGeoPoint, it.geoPoint, speed)
-            if (time < it.timeInterval.start) time += it.timeInterval.start - time
+            if (time < it.timeInterval.start) time = it.timeInterval.start
             time += it.timeUnload
             if (time > it.timeInterval.end) return false
             currentGeoPoint = it.geoPoint
@@ -42,7 +42,7 @@ class TimeExportCalculator(val resource: Resource){
 
     private fun calculateTimeTable(orders: List<Order>, startTime: Int, speed: Int): TimeTable{
         val timeTable = TimeTable(startTime, mutableListOf<TimeInterval>(), 0)
-        timeTable.startTime = startTime - orders.sumBy { it.timeLoad }
+        timeTable.startTime = startTime - orders.sumBy { it.timeLoad } - calculateTravelTime(DistributionCenter.geoPoint, orders.first().geoPoint, speed)
         var currentGeoPoint = DistributionCenter.geoPoint
         var time = startTime
         var distance: Double
