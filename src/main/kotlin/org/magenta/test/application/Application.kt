@@ -16,4 +16,9 @@ fun main(args: Array<String>) {
     val timeExportCalculator = TimeExportCalculator(resource)
 
     println(timeExportCalculator.calculateStartTime())
+//    val list = ArrayList<Int>()
+//    list.add(0)
+//    list.add(1)
+//    list[0] = list[1].also { list[1] = list[0] }
+//    print(list)
 }
