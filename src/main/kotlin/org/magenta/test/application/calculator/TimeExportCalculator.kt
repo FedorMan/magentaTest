@@ -8,7 +8,7 @@ class TimeExportCalculator(val resource: Resource){
 
     fun calculateStartTime(): TimeTable{
         val firstInterval = resource.orders.first().timeInterval.copy()
-        while (firstInterval.start  - firstInterval.end >= 1) {
+        while (firstInterval.end  - firstInterval.start > 1) {
             val startTime = getMiddle(firstInterval)
             if (validateStartTime(startTime)) {
                 firstInterval.start = startTime

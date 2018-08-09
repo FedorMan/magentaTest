@@ -36,7 +36,7 @@ class Salesman{
         var c2: Int
         var dc: Int
         while (temperature>0.1){
-            newOrders[first] = lastOrders[second].also { lastOrders[second] = lastOrders[first]}
+            newOrders[first] = lastOrders[second].also { newOrders[second] = lastOrders[first]}
             resource.orders = newOrders
             if (timeExportCalculator.validateStartTime(newOrders.first().timeInterval.start)) {
                 c2 = timeExportCalculator.calculateStartTime().let { it.endTime - it.startTime }
@@ -48,6 +48,8 @@ class Salesman{
                     orders = newOrders
                 }
             }
+            first = (orders.size * random()).toInt()
+            second = (orders.size * random()).toInt()
             temperature *= alfa
         }
         resource.orders = orders

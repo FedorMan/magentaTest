@@ -2,19 +2,30 @@ package org.magenta.test.application
 
 import org.magenta.test.application.calculator.TimeExportCalculator
 import org.magenta.test.application.entity.*
+import org.magenta.test.application.travelingsalesmen.Salesman
 
 fun main(args: Array<String>) {
-    DistributionCenter.timeInterval = TimeInterval(530, 1320)
+    DistributionCenter.timeInterval = TimeInterval(0, 1440)
     DistributionCenter.geoPoint = GeoPoint(53.2443, 50.202)
 
     val orders = mutableListOf<Order>()
-    orders.add(Order(GeoPoint(53.233, 50.199847), 15.0, 12, 12, TimeInterval(720, 840)))
-    orders.add(Order(GeoPoint(53.2451141, 50.190082), 15.0, 12, 12, TimeInterval(1000, 1320)))
+    orders.add(Order(GeoPoint(53.242028, 50.210301), 15.0, 12, 12, TimeInterval(320, 960)))
+    orders.add(Order(GeoPoint(53.225468, 50.174400), 15.0, 12, 12, TimeInterval(380, 520)))
+    orders.add(Order(GeoPoint(53.211840, 50.210192), 15.0, 12, 12, TimeInterval(720, 1000)))
+    orders.add(Order(GeoPoint(53.234149, 50.281016), 15.0, 12, 12, TimeInterval(800, 1020)))
+    orders.add(Order(GeoPoint(53.248669, 50.249799), 15.0, 12, 12, TimeInterval(120, 470)))
+    orders.add(Order(GeoPoint(53.247294, 50.190148), 15.0, 12, 12, TimeInterval(520, 720)))
 
     val resource = Resource(60, 90.0, orders)
 
     val timeExportCalculator = TimeExportCalculator(resource)
 
+    val salesman = Salesman()
+
+//    salesman.swapToAnnealingRote(resource)
+    salesman.swapToGreedyRote(resource.orders)
+
+    orders.forEach { println(it) }
     println(timeExportCalculator.calculateStartTime())
 //    val list = ArrayList<Int>()
 //    list.add(0)
