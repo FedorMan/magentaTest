@@ -18,13 +18,12 @@ fun main(args: Array<String>) {
 
     val resource = Resource(60, 90.0, orders)
 
-    val timeExportCalculator = TimeExportCalculator(resource)
-
     val salesman = Salesman()
 
     salesman.swapToAnnealingRote(resource)
 //    salesman.swapToGreedyRote(resource.orders)
 
+    val timeExportCalculator = TimeExportCalculator(resource)
     resource.orders.forEach { println(it) }
     println(timeExportCalculator.calculateStartTime())
 //    val list = ArrayList<Int>()
